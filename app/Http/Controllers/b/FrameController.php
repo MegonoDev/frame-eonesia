@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use App\Models\Frame;
-
+use App\Http\Requests\FrameRequest;
 use App\Http\Controllers\b\BackendController;
 use Illuminate\Http\Request;
 
@@ -26,7 +26,7 @@ class FrameController extends BackendController
         return view('backend.frame.create', compact('bcrum'));
     }
 
-    public function store(Request $request)
+    public function store(FrameRequest $request)
     {
         $data = $this->handleRequest($request);
 

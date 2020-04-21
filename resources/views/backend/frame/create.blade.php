@@ -36,6 +36,7 @@ Create Frame
                                             <button class="btn btn-danger btn-block mt-3" id="button_ktp" type="button" style="border-radius:0;" onclick="$('#frame').trigger( 'click' )">Ganti Foto</button>
                                         </div>
                                     </div>
+                                    {!! $errors->first('frame', '<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
                         </div>
