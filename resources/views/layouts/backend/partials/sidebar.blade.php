@@ -16,10 +16,10 @@
                 <i class="c-sidebar-nav-icon c-icon cil-home"></i> Dashboard
             </a>
         </li>
-        <li class="c-sidebar-nav-title">Menu</li>
+        <li class="c-sidebar-nav-title">Frame Management</li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Menu
+            <a class="c-sidebar-nav-link" href="{{ route('frame.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> List Frame
                 <span class="badge badge-info">NEW</span>
             </a>
         </li>
