@@ -11,18 +11,18 @@ Dashboard
                 <div class="card-header">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <h4> <i class="c-icon cil-window-maximize"></i> Frame</h4>
+                            <h4>Frame</h4>
                         </li>
                         <li class="list-inline-item float-right">
                             <div class="d-none d-md-block">
                                 <a href="{{ route('frame.create') }}" class="btn btn-sm btn-outline-primary mx-3">
-                                    <i class="c-icon cil-plus"></i>
+                                    <i class="c-icon cil-image-plus"></i>
                                     Create Frame
                                 </a>
                             </div>
                             <div class="d-md-none float-right">
                                 <a href="{{ route('frame.create') }}" class="btn btn-sm btn-outline-primary mb-3">
-                                    <i class="c-icon cil-plus"></i>
+                                    <i class="c-icon cil-image-plus"></i>
 
                                 </a>
                             </div>

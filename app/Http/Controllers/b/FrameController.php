@@ -9,6 +9,8 @@ use App\Models\Frame;
 use App\Http\Requests\FrameRequest;
 use App\Http\Controllers\b\BackendController;
 use Illuminate\Http\Request;
+use File;
+use Illuminate\Support\Facades\DB;
 
 class FrameController extends BackendController
 {
@@ -16,7 +18,8 @@ class FrameController extends BackendController
     {
         $bcrum = $this->bcrum('Frame');
 
-        return view('backend.frame.index', compact('bcrum'));
+        $frames = Frame::paginate(15);
+        return view('backend.frame.index', compact('bcrum', 'frames'));
     }
 
     public function create()
@@ -47,6 +50,41 @@ class FrameController extends BackendController
 
             return redirect()->route($redirect);
         }
+    }
+
+    public function edit($id)
+    {
+        $frame = DB::table('frames')->where('link_frame', $id)->first();
+
+        $bcrum = $this->bcrum('Edit Frame', route('frame.index'), 'Frame');
+
+        return view('backend.frame.edit', compact('frame', 'bcrum'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $frame = Frame::where('link_frame', $id)->first();
+        $oldFrame = $frame->path_frame;
+        $oldType = $frame->type_frame;
+        $data = $this->handleRequest($request);
+        $frame->update($data);
+
+
+        if ($oldFrame !== $frame->path_frame) {
+
+            $this->deleteImage($oldFrame);
+        }
+        if ($oldType !== $frame->type_frame) {
+            $this->resizeImage($frame);
+        }
+
+        Session::flash('flash_notification', [
+            'title' => 'Successful!',
+            'level' => 'success',
+            'message' => 'Frame successfully edited.'
+        ]);
+
+        return redirect()->route('frame.index');
     }
 
     public function handleRequest($request)
@@ -83,7 +121,7 @@ class FrameController extends BackendController
             }
             $frame       = $request->file('frame');
             $extension   = $frame->guessClientExtension();
-            $fileName    = 'frame_' . $slug . '.' . $extension;
+            $fileName    = 'frame_' . $slug . '_' . date('dmy') . '.' . $extension;
             $destination = public_path() . '/img/frame';
             $data['link_frame'] = $slug;
 
@@ -98,7 +136,53 @@ class FrameController extends BackendController
                     ->save($destination . "/" . $thumbnail);
             }
             $data['path_frame'] = $fileName;
-            return $data;
         }
+
+        return $data;
+    }
+
+    public function resizeImage($frame)
+    {
+        if ($frame->type_frame      === 'landscape') {
+            $width = 1080;  //  ratio: 1.91:1
+            $height = 608;
+            $width_thumb = 500;
+            $height_thumb = 300;
+        } elseif ($frame->type_frame === 'portrait') {
+            $width = 1080;  //  ratio: 4:5
+            $height = 1350;
+            $width_thumb = 300;
+            $height_thumb = 400;
+        } elseif ($frame->type_frame === 'square') {
+            $width = 1080;  // ratio 1:1
+            $height = 1080;
+            $width_thumb = 300;
+            $height_thumb = 300;
+        } else {
+            $width = 1080;
+            $height = 1920;
+            $width_thumb = 360;
+            $height_thumb = 640;
+        }
+        $imagePath = public_path() . DIRECTORY_SEPARATOR . 'img/frame'
+            . DIRECTORY_SEPARATOR . $frame->path_frame;
+
+        $imageThumbPath = public_path() . DIRECTORY_SEPARATOR . 'img/frame'
+            . DIRECTORY_SEPARATOR . 'thumb_' . $frame->path_frame;
+        $image = Image::make($imagePath);
+        $imageThumb = Image::make($imageThumbPath);
+        $result[] = $imageThumb->resize($width_thumb, $height_thumb)->save($imageThumbPath);
+        $result[] = $image->resize($width, $height)->save($imagePath);
+
+        return $result;
+    }
+    public function deleteImage($filename)
+    {
+        $path = public_path() . DIRECTORY_SEPARATOR . 'img/frame'
+            . DIRECTORY_SEPARATOR . $filename;
+        $thumbnail = public_path() . DIRECTORY_SEPARATOR . 'img/frame'
+            . DIRECTORY_SEPARATOR . 'thumb_' . $filename;
+
+        return File::delete($path, $thumbnail);
     }
 }
