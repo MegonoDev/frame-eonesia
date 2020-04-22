@@ -6,13 +6,19 @@ use App\Http\Controllers\f\FrontendController;
 use App\Models\Frame;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Helpers\Size;
 
 class UploadController extends FrontendController
 {
+
+    public function __construct()
+    {
+        $this->size = new Size;
+    }
     public function upload($id)
     {
         $frame = DB::table('frames')->where('link_frame', $id)->first();
-        $size = $this->getSize($frame->type_frame);
+        $size = $this->size->getSize($frame->type_frame);
         return view('frontend.upload.upload',compact('size','frame'));
     }
 
@@ -74,36 +80,4 @@ class UploadController extends FrontendController
         }        
     }
 
-    public function getSize($type)
-    {
-        if ($type      === 'landscape') {
-            $width = 1080;  //  ratio: 1.91:1
-            $height = 608;
-            $width_thumb = 500;
-            $height_thumb = 300;
-        } elseif ($type === 'portrait') {
-            $width = 1080;  //  ratio: 4:5
-            $height = 1350;
-            $width_thumb = 300;
-            $height_thumb = 400;
-        } elseif ($type === 'square') {
-            $width = 1080;  // ratio 1:1
-            $height = 1080;
-            $width_thumb = 300;
-            $height_thumb = 300;
-        } else {
-            $width = 1080;
-            $height = 1920;
-            $width_thumb = 360;
-            $height_thumb = 640;
-        }
-        $result = [
-            'width' => $width,
-            'height' => $height,
-            'width_thumb' => $width_thumb,
-            'height_thumb' => $height_thumb,
-        ];
-
-        return $result;
-    }
 }

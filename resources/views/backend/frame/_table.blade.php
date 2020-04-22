@@ -21,9 +21,9 @@
             <td><a href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
             <td>
                 <a href="{{ route('frame.edit',$frame->link_frame) }}" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit {{ $frame->nama_frame }}"> <i class="c-icon cil-pencil"></i> </a>
-        {{-- 
-                <a href="{{ route('frame.show',$frame->link_frame) }}" class="btn btn-sm btn-warning"> <i class="c-icon cil-image1"></i> </a>
-                --}}
+        
+                <a href="{{ route('frame.show',$frame->link_frame) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show {{ $frame->nama_frame }}"> <i class="c-icon cil-image1"></i> </a>
+                
             </tr>
         @endforeach
     </tbody>

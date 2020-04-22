@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\b;
 
+use App\Helpers\Size;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class FrameController extends BackendController
 {
+
+    public function __construct()
+    {
+        $this->size = new Size;
+    }
     public function index()
     {
         $bcrum = $this->bcrum('Frame');
@@ -87,6 +93,15 @@ class FrameController extends BackendController
         return redirect()->route('frame.index');
     }
 
+    public function show($id)
+    {
+
+        $frame = DB::table('frames')->where('link_frame', $id)->first();
+        $size = $this->size->getSize($frame->type_frame);
+        $bcrum = $this->bcrum('Show Frame', route('frame.index'), 'Frame');
+        return view('backend.frame.show',compact('size','frame','bcrum'));
+    }
+
     public function handleRequest($request)
     {
         $data = $request->all();
@@ -121,7 +136,7 @@ class FrameController extends BackendController
             }
             $frame       = $request->file('frame');
             $extension   = $frame->guessClientExtension();
-            $fileName    = 'frame_' . $slug . '_' . date('dmy') . '.' . $extension;
+            $fileName    = 'frame_' . $slug . '_' . date('dmy_His') . '.' . $extension;
             $destination = public_path() . '/img/frame';
             $data['link_frame'] = $slug;
 

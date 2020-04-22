@@ -8,7 +8,7 @@ Edit Frame
     <div class="fade-in">
         <form action="{{ route('frame.update',$frame->link_frame) }}" method="post" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-6 col-sm-12 col-lg-6">
+                <div class="col-7 col-sm-12 col-lg-7">
                     <div class="card">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
@@ -40,7 +40,7 @@ Edit Frame
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-sm-12 col-lg-6">
+                <div class="col-5 col-sm-12 col-lg-5">
                     <div class="card">
                         <div class="card-header">
                             <h4>Frame Detail</h4>
