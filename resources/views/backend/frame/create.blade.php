@@ -68,7 +68,7 @@ Create Frame
 
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="nama_frame">Name</label>
+                                <label for="nama_frame">Name or Title</label>
                                 <input name="nama_frame" class="form-control {{ $errors->has('nama_frame') ? 'is-invalid' : '' }}" id="nama_frame" type="text" placeholder="Frame Name">
                                 {!! $errors->first('nama_frame', '<div class="invalid-feedback">:message</div>') !!}
                             </div>

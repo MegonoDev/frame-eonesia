@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body class="d-flex align-items-center">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 d-flex justify-content-center">
