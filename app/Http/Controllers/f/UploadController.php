@@ -7,6 +7,7 @@ use App\Models\Frame;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Helpers\Size;
+use Illuminate\Support\Facades\URL;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -16,6 +17,8 @@ class UploadController extends FrontendController
     public function __construct()
     {
         $this->size = new Size;
+        $this->pathDownload = public_path().'/img/result';
+        $this->pathStream = 'img/result';
     }
     public function upload($id)
     {
@@ -73,7 +76,21 @@ class UploadController extends FrontendController
 
             // pemrosesan akhir, Membuat gambar baru dengan nama file baru
             imagejpeg($source, $thumbnail, 300);
-            return '<a href="download.php?file=' . 'event_' . $fileName . '"><img src="' . $thumbnail . '" class="img-thumbnail" /></a><div> <a href="download.php?file=' . 'event_' . $fileName . '"><span class="btn btn-warning">Download</span></a> <a href="index.html"><span class="btn btn-danger">Replay</span></a></div>';
+            $result = [
+                'result'   => 'ok',
+                'code'     => '200',
+                'image'    => URL::asset($this->pathStream. DIRECTORY_SEPARATOR . $fileName),
+                'download' => route('download', $fileName)
+            ];
+
+            return response()->json($result);
         }
     }
+    public function download($id)
+    {
+        $file = $this->pathDownload.DIRECTORY_SEPARATOR.$id;
+        $headers = array('Content-Type: image/png',);
+        return response()->download($file, 'event_'.$id,$headers);
+    }
+
 }
