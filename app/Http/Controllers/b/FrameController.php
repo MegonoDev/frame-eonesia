@@ -28,6 +28,24 @@ class FrameController extends BackendController
         return view('backend.frame.index', compact('bcrum', 'frames'));
     }
 
+    public function prepare()
+    {
+        $paths = [public_path() . '/img/photo', public_path() . '/img/frame'];
+        foreach ($paths as $path) {
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
+        }
+
+        Session::flash('flash_notification', [
+            'title' => 'Successful!',
+            'level' => 'success',
+            'message' => 'Preparation Completed'
+        ]);
+
+        return redirect()->route('frame.index');
+    }
+
     public function create()
     {
         $bcrum = $this->bcrum('Create Frame', route('frame.index'), 'Frame');
@@ -38,10 +56,12 @@ class FrameController extends BackendController
     public function store(FrameRequest $request)
     {
         $data = $this->handleRequest($request);
-
         $create = Frame::create($data);
         if ($create) {
-
+            $path = public_path() . '/img/result';
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
             Session::flash('flash_notification', [
                 'title' => 'Successful!',
                 'level' => 'success',
@@ -99,7 +119,7 @@ class FrameController extends BackendController
         $frame = DB::table('frames')->where('link_frame', $id)->first();
         $size = $this->size->getSize($frame->type_frame);
         $bcrum = $this->bcrum('Show Frame', route('frame.index'), 'Frame');
-        return view('backend.frame.show',compact('size','frame','bcrum'));
+        return view('backend.frame.show', compact('size', 'frame', 'bcrum'));
     }
 
     public function handleRequest($request)

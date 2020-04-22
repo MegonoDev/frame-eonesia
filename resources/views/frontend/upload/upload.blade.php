@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="upload foto kamu">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('assets/img/icon.png') }}" rel="icon">
     <link href="{{ asset('assets/img/icon.png') }}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('assets/coreui/css/style.css') }}">
@@ -30,7 +31,7 @@
 
 </head>
 
-<body class="d-flex align-items-center">
+<body class="d-flex align-items-center" id="body">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 d-flex justify-content-center">
@@ -144,11 +145,17 @@
                         })
 
                         .then(function(response) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
                             $.ajax({
-                                url: "{{ route('upload.create',$frame->link_frame) }}",
+                                url: "{{ route('upload.store',$frame->link_frame) }}",
                                 type: "POST",
                                 data: {
                                     "image": response
+
                                 },
                                 success: function(data) {
                                     $('#uploadimageModal').modal('hide');
