@@ -26,8 +26,8 @@ class Size {
         } else {
             $width = 1080;
             $height = 1920;
-            $width_thumb = 360;
-            $height_thumb = 640;
+            $width_thumb = 300;
+            $height_thumb = 530;
         }
         $result = [
             'width' => $width,

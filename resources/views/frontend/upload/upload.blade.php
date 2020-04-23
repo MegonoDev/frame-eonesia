@@ -7,7 +7,7 @@
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <meta name="description" content="upload foto kamu">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -31,18 +31,18 @@
 
 </head>
 
-<body class="d-flex align-items-center" id="body">
-    <div class="container">
+<body id="body">
+    <div class="container pt-5">
         <div class="row">
-            <div class="col-sm-12 d-flex justify-content-center">
-                <div class="card">
+            <div class="col-sm-12 col-lg-12 d-flex justify-content-center">
+                <div class="card col-sm-8 col-lg-8">
                     <div class="card-body">
                         <form>
                             <label for="file-upload" id="file-drag">
                                 <div id="show-form">
                                     <div id="uploaded_image" class="image-upload-wrap">
                                         <input class="upload-hidden" id="file-upload" type="file" name="fileUpload" accept="image/*," />
-                                        <img src="{{ asset('assets/img/default-crop.png') }}">
+                                        <img src="{{ asset('assets/img/default-crop.png') }}" class="img-fluid">
                                         <span id="file-upload-btn" class="btn btn-block btn-dark btn-md mt-3"><i class="fa fa-camera"></i> Select a photo</span>
                                     </div>
                                 </div>
@@ -53,12 +53,12 @@
                             <form>
                                 <div id="preview">
                                     <div id="start">
-                                        <table border="0" align="center" width="{{ $size['width_thumb'] }}px">
+                                        <table border="0" align="center" width="{{ $size['width_thumb'] }}">
                                             <tr>
                                                 <td>
                                                     <div id="image_demo"></div>
                                                     <div class="d-flex justify-content-start">
-                                                        <img src="{{ asset('img/frame/thumb_'.$frame->path_frame) }}" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
+                                                        <img src="{{ asset('img/frame/thumb_'.$frame->path_frame) }}" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['height_thumb'] }}px;" />
                                                     </div>
                                                 </td>
                                             </tr>
@@ -154,7 +154,9 @@
                                 url: "{{ route('upload.store',$frame->link_frame) }}",
                                 type: "POST",
                                 data: {
-                                    "image": response
+                                    "image": response,
+                                    "frame": "{{ $frame->link_frame }}",
+                                    "_token": '{{csrf_token()}}'
 
                                 },
                                 success: function(data) {
