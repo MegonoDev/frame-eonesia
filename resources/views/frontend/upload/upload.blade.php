@@ -34,11 +34,11 @@
 <body id="body">
     <div class="container pt-5">
         <div class="row">
-            <div class="col-sm-12 col-lg-12 d-flex justify-content-center">
-                <div class="card col-sm-8 col-lg-8">
-                    <div class="card-body">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div class="card col-sm-6 col-lg-4">
+                    <!-- <div class="card-body"> -->
                         <form>
-                            <label for="file-upload" id="file-drag">
+                            <label for="file-upload" id="file-drag" class="my-4">
                                 <div id="show-form">
                                     <div id="uploaded_image" class="image-upload-wrap">
                                         <input class="upload-hidden" id="file-upload" type="file" name="fileUpload" accept="image/*," />
@@ -70,7 +70,7 @@
                                 <p id="catatan">*klik pada gambar untuk geser kanan, kiri, atas dan bawah </p>
                             </form>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -85,8 +85,8 @@
                 $image_crop = $('#image_demo').croppie({
                     enableExif: true,
                     viewport: {
-                        width: "{{ $size['width_thumb']+100 }}",
-                        height: "{{ $size['height_thumb']+100 }}",
+                        width: "{{ $size['width_thumb'] }}",
+                        height: "{{ $size['height_thumb'] }}",
                         type: 'square' //circle
                     },
                     boundary: {
@@ -97,8 +97,8 @@
 
                 $('#file-upload').on('change', function() {
                     var reader = new FileReader();
-                    var maxwidth = "{{ $size['width']+100 }}";
-                    var maxheight = "{{ $size['width']+100 }}";
+                    var maxwidth = "{{ $size['width'] }}";
+                    var maxheight = "{{ $size['width'] }}";
                     reader.onload = function(event) {
                         var image = new Image();
                         //Set the Base64 string return from FileReader as source.

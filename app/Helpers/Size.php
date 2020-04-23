@@ -11,8 +11,8 @@ class Size {
         if ($type      === 'landscape') {
             $width = 1080;  //  ratio: 1.91:1
             $height = 608;
-            $width_thumb = 500;
-            $height_thumb = 300;
+            $width_thumb = 300;
+            $height_thumb = 170;
         } elseif ($type === 'portrait') {
             $width = 1080;  //  ratio: 4:5
             $height = 1350;
