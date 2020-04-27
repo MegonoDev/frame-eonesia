@@ -6,7 +6,7 @@ namespace App\Helpers;
 class Size {
 
     
-    public function getSize($type)
+    public function getSize($type,$bg = false)
     {
         if ($type      === 'landscape') {
             $width = 1080;  //  ratio: 1.91:1
@@ -35,6 +35,9 @@ class Size {
             'width_thumb' => $width_thumb,
             'height_thumb' => $height_thumb,
         ];
+        if($bg) {
+            $result['bg'] = 'assets/img/default-'.$type.'.png';
+        }
 
         return $result;
     }

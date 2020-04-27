@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ $frame->nama_frame }}</title>
+    <title>   </title>
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,13 +42,15 @@
                                 <div id="show-form">
                                     <div id="uploaded_image" class="image-upload-wrap">
                                         <input class="upload-hidden" id="file-upload" type="file" name="fileUpload" accept="image/*," />
-                                        <img src="{{ asset('assets/img/default-crop.png') }}" class="img-fluid">
+                                        <img src="{{ asset($size['bg']) }}" style="width: {{ $size['width_thumb'] }}px; height:{{ $size['height_thumb'] }}px">
                                         <span id="file-upload-btn" class="btn btn-block btn-dark btn-md mt-3"><i class="fa fa-camera"></i> Select a photo</span>
                                     </div>
                                 </div>
                             </label>
                         </form>
+                        <div class="text-center">
                         <img src="{{ asset('assets/img/loading.gif') }}" id="loading" style="display:none; width: 250px;height:250px;">
+                        </div>
                         <div id="hilang" style="display:none;">
                             <form>
                                 <div id="preview">
@@ -97,8 +99,8 @@
 
                 $('#file-upload').on('change', function() {
                     var reader = new FileReader();
-                    var maxwidth = "{{ $size['width'] }}";
-                    var maxheight = "{{ $size['width'] }}";
+                    var minweight = "{{ $size['width'] }}";
+                    var minheight = "{{ $size['width'] }}";
                     reader.onload = function(event) {
                         var image = new Image();
                         //Set the Base64 string return from FileReader as source.
@@ -107,12 +109,12 @@
                             //Determine the Height and Width.
                             var height = this.height;
                             var width = this.width;
-                            if (width < maxwidth) {
+                            if (width < minweight) {
                                 console.log('witdh', width);
                                 alert("Lebar Gambar Minimal {{ $size['width'] }}px.");
                                 $("#file-drag").show();
                                 return false;
-                            } else if (height < maxheight) {
+                            } else if (height < minheight) {
                                 console.log('height', height);
                                 alert("Tinggi Gambar Minimal {{ $size['height']}}px.");
                                 $("#file-drag").show();
@@ -131,7 +133,7 @@
                         };
                     }
                     reader.readAsDataURL(this.files[0]);
-                    $('#uploadimageModal').modal('show');
+                    // $('#uploadimageModal').modal('show');
                 });
 
                 $('.crop_image').click(function(event) {
@@ -155,16 +157,17 @@
                                 type: "POST",
                                 data: {
                                     "image": response,
+                                    "photo": image.src,
                                     "frame": "{{ $frame->link_frame }}",
                                     "_token": '{{csrf_token()}}'
 
                                 },
                                 success: function(data) {
-
+                                    $('body').html(data);
                                     var thispage = "{{ route('upload',$frame->link_frame) }}";
                                     var text = '<a href="' + data.download + '"><img width="{{ $size["width_thumb"] }}px" height="{{ $size["height_thumb"] }}px" src="' + data.image + '" class="img-thumbnail mb-3" /></a><div> <a href="' + data.download + '"><span class="btn btn-warning">Download</span></a> <a href="' + thispage + '"><span class="btn btn-danger">Replay</span></a></div>';
 
-                                    $('#uploadimageModal').modal('hide');
+                                    // $('#uploadimageModal').modal('hide');
                                     $('#uploaded_image').html(text);
                                     $("#file-drag").show();
                                     $("#catatan").hide();

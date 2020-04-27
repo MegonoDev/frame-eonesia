@@ -21,12 +21,13 @@ class UploadController extends FrontendController
     public function upload($id)
     {
         $frame = DB::table('frames')->where('link_frame', $id)->first();
-        $size = $this->size->getSize($frame->type_frame);
+        $size = $this->size->getSize($frame->type_frame,true);
         return view('frontend.upload.upload', compact('size', 'frame'));
     }
 
     public function store(Request $request)
     {
+        dd($request->all());
         $frame = DB::table('frames')->where('link_frame', $request->frame)->first();
         $saveResultPath  =  public_path() . '/img/result';
         // $savePhotoPath  =  public_path() . '/img/photo';
