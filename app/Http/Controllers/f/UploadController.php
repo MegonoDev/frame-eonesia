@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Size;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Facades\Image;
+use App\Models\Photo;
 
 class UploadController extends FrontendController
 {
@@ -25,53 +26,64 @@ class UploadController extends FrontendController
 
     public function store(Request $request)
     {
+        if (!$request->has('image')) return redirect()->route('welcome');
+        $data = $this->handleRequest($request);
+        Photo::create($data);
+        $result = [
+            'result'   => 'ok',
+            'code'     => '200',
+            'image'    => URL::asset($this->pathResult . DIRECTORY_SEPARATOR . $data['path_result']),
+            'download' => route('download', $data['path_result'])
+        ];
+
+        return response()->json($result);
+    }
+    public function handleRequest($request)
+    {
+        $destinationResult    =  public_path() . '/img/result/';
+        $destinationPhoto     =  public_path() . '/img/photo/';
+
         $frame = DB::table('frames')->where('link_frame', $request->frame)->first();
-        $saveResultPath  =  public_path() . '/img/result';
         $size = $this->size->getSize($frame->type_frame);
-        if ($request->has('image')) {
-            $image_array_1 = explode(";", $request->image);
-            $image_array_2 = explode(",", $image_array_1[1]);
-            $data = base64_decode($image_array_2[1]); //data foto
-            $fileName = time() . '.png';
-            $destinationPhoto = $saveResultPath;
-            Image::make($data)
-                ->resize($size['width'], $size['height'])->save($destinationPhoto . "/" . $fileName);
-            //proses framewatermark
-            $uploadgambar = $destinationPhoto . DIRECTORY_SEPARATOR . $fileName;
-            $frameImage        = public_path() . '/img/frame' . DIRECTORY_SEPARATOR . $frame->path_frame;
 
-            $thumbnail = $uploadgambar;
-            $source = imagecreatefrompng($uploadgambar);
-            $watermark = imagecreatefrompng($frameImage);
-            $water_width = imagesx($watermark);
-            $water_height = imagesy($watermark);
+        $imageArray1    = explode(";", $request->image);
+        $imageArray2    = explode(",", $imageArray1[1]);
+        $dataImage      = base64_decode($imageArray2[1]);
+        $resultName     = 'result_' . time() . '.png';
+        $photoName      = 'photo_'  . time() . '.png';
+        $uploadPhoto    = $destinationPhoto . $photoName;
+        $uploadResult   = $destinationResult . $resultName;
+        //simpan foto asli
+        Image::make($dataImage)
+        ->resize($size['width'], $size['height'])->save($uploadPhoto);
+        Image::make($dataImage)
+            ->resize($size['width'], $size['height'])->save($uploadResult);
 
-            // mendapatkan lebar dan tinggi dari gambar utama
-            // $main_width = imagesx($source);
-            // $main_height = imagesy($source);
+        $frameImage     = public_path() . '/img/frame' . DIRECTORY_SEPARATOR . $frame->path_frame;
 
-            // Menetapkan posisi gambar watermark
-            $dime_x = 0;
-            $dime_y = 0;
+        $source         = imagecreatefrompng($uploadResult);
+        $watermark      = imagecreatefrompng($frameImage);
+        $waterWidth    = imagesx($watermark);
+        $waterHeight   = imagesy($watermark);
+        // Menetapkan posisi gambar watermark
+        $dimeX         = 0;
+        $dimeY         = 0;
+        // menyalin kedua gambar
+        imagecopy($source, $watermark, $dimeX, $dimeY, 0, 0, $waterWidth, $waterHeight);
 
-            // menyalin kedua gambar
-            imagecopy($source, $watermark, $dime_x, $dime_y, 0, 0, $water_width, $water_height);
+        // pemrosesan akhir, Membuat gambar baru dengan nama file baru
+        imagejpeg($source, $uploadResult, 300);
 
-            // pemrosesan akhir, Membuat gambar baru dengan nama file baru
-            imagejpeg($source, $thumbnail, 300);
-            $result = [
-                'result'   => 'ok',
-                'code'     => '200',
-                'image'    => URL::asset($this->pathResult . DIRECTORY_SEPARATOR . $fileName),
-                'download' => route('download', $fileName)
-            ];
-
-            return response()->json($result);
-        }
+        $data = [
+            'path_photo'  => $photoName,
+            'path_result' => $resultName,
+            'id_frame'    => $frame->id,
+        ];
+        return $data;
     }
     public function download($id)
     {
-        $file = public_path() .DIRECTORY_SEPARATOR. $this->pathResult . DIRECTORY_SEPARATOR . $id;
+        $file = public_path() . DIRECTORY_SEPARATOR . $this->pathResult . DIRECTORY_SEPARATOR . $id;
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'event_' . $id, $headers);
     }
