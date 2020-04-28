@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    protected $pathResult = 'img/result';
     public function index()
     {
         return view('frontend.index');

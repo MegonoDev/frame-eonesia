@@ -71,7 +71,7 @@ class UploadController extends FrontendController
     }
     public function download($id)
     {
-        $file = public_path() . $this->pathResult . DIRECTORY_SEPARATOR . $id;
+        $file = public_path() .DIRECTORY_SEPARATOR. $this->pathResult . DIRECTORY_SEPARATOR . $id;
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'event_' . $id, $headers);
     }

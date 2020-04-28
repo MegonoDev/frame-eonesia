@@ -162,7 +162,6 @@
 
                                 },
                                 success: function(data) {
-                                    $('body').html(data);
                                     var thispage = "{{ route('upload',$frame->link_frame) }}";
                                     var text = '<a href="' + data.download + '"><img width="{{ $size["width_thumb"] }}px" height="{{ $size["height_thumb"] }}px" src="' + data.image + '" class="img-thumbnail mb-3" /></a><div> <a href="' + data.download + '"><span class="btn btn-warning">Download</span></a> <a href="' + thispage + '"><span class="btn btn-danger">Replay</span></a></div>';
 
