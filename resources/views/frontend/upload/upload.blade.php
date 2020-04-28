@@ -157,7 +157,6 @@
                                 type: "POST",
                                 data: {
                                     "image": response,
-                                    "photo": image.src,
                                     "frame": "{{ $frame->link_frame }}",
                                     "_token": '{{csrf_token()}}'
 

@@ -18,7 +18,7 @@
     <link href="{{ asset('assets/img/icon.png') }}" rel="icon">
     <link href="{{ asset('assets/img/icon.png') }}" rel="apple-touch-icon">
     <meta name="author" content="MegonoDev">
-    <title>@yield('title') | MEGONODEV</title>
+    <title>@yield('title') | {{ env('APP_NAME') }}</title>
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png"> -->
 
     <!-- Main styles for this application-->

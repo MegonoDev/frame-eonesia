@@ -15,22 +15,18 @@ class UploadController extends FrontendController
     public function __construct()
     {
         $this->size = new Size;
-        $this->pathDownload = public_path() . '/img/result';
-        $this->pathStream = 'img/result';
     }
     public function upload($id)
     {
         $frame = DB::table('frames')->where('link_frame', $id)->first();
-        $size = $this->size->getSize($frame->type_frame,true);
+        $size = $this->size->getSize($frame->type_frame, true);
         return view('frontend.upload.upload', compact('size', 'frame'));
     }
 
     public function store(Request $request)
     {
-        dd($request->all());
         $frame = DB::table('frames')->where('link_frame', $request->frame)->first();
         $saveResultPath  =  public_path() . '/img/result';
-        // $savePhotoPath  =  public_path() . '/img/photo';
         $size = $this->size->getSize($frame->type_frame);
         if ($request->has('image')) {
             $image_array_1 = explode(";", $request->image);
@@ -66,7 +62,7 @@ class UploadController extends FrontendController
             $result = [
                 'result'   => 'ok',
                 'code'     => '200',
-                'image'    => URL::asset($this->pathStream . DIRECTORY_SEPARATOR . $fileName),
+                'image'    => URL::asset($this->pathResult . DIRECTORY_SEPARATOR . $fileName),
                 'download' => route('download', $fileName)
             ];
 
@@ -75,7 +71,7 @@ class UploadController extends FrontendController
     }
     public function download($id)
     {
-        $file = $this->pathDownload . DIRECTORY_SEPARATOR . $id;
+        $file = public_path() . $this->pathResult . DIRECTORY_SEPARATOR . $id;
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'event_' . $id, $headers);
     }

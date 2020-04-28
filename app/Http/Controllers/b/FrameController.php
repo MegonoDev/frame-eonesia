@@ -30,7 +30,7 @@ class FrameController extends BackendController
 
     public function prepare()
     {
-        $paths = [public_path() . '/img/photo', public_path() . '/img/frame'];
+        $paths = [public_path() . '/img/frame', public_path() . '/img/result'];
         foreach ($paths as $path) {
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true, true);
@@ -149,7 +149,7 @@ class FrameController extends BackendController
                 $width_thumb = 360;
                 $height_thumb = 640;
             }
-            if ($request->has('link_frame')) {
+            if ($request->link_frame != null) {
                 $slug = Str::slug($request->link_frame, '-');
             } else {
                 $slug =  Str::slug($request->nama_frame, '-');
@@ -172,7 +172,6 @@ class FrameController extends BackendController
             }
             $data['path_frame'] = $fileName;
         }
-
         return $data;
     }
 
