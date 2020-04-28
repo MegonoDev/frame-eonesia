@@ -39,15 +39,15 @@ Show Frame
                     <div class="form-group text-center">
                         <label><b>SHARE</b></label>
                         <div class="controls">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('upload',$frame->link_frame) }}" class="btn btn-facebook" type="button">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('upload',$frame->link_frame) }}" class="btn btn-facebook mb-2" type="button">
                                 <i class="c-icon mr-2 cib-facebook-f">
                                 </i><span>Facebook</span>
                             </a>
-                            <a href="http://twitter.com/share?text=Ayo Upload Foto Kamu&url={{ route('upload',$frame->link_frame) }}&hashtags=event" class="btn btn-twitter" type="button">
+                            <a href="http://twitter.com/share?text=Ayo Upload Foto Kamu&url={{ route('upload',$frame->link_frame) }}&hashtags=event" class="btn btn-twitter mb-2" type="button">
                                 <i class="c-icon mr-2 cib-twitter">
                                 </i><span>Twitter</span>
                             </a>
-                            <a href="https://wa.me/?text=Ayo upload foto kamu... {{ route('upload',$frame->link_frame) }}" class="btn btn-success" type="button">
+                            <a href="https://wa.me/?text=Ayo upload foto kamu... {{ route('upload',$frame->link_frame) }}" class="btn btn-success mb-2" type="button">
                                 <i class="c-icon mr-2 cib-whatsapp">
                                 </i><span>Whatsapp</span>
                             </a>
