@@ -23,7 +23,7 @@
                 {{ $photo->frame->nama_frame }}
             </td>
             <td>
-                <a href="" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"> <i class="c-icon cil-image1"></i> </a>
+                <a href="{{ route('photo.show',$photo->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"> <i class="c-icon cil-image1"></i> </a>
             </td>
         </tr>
         @endforeach

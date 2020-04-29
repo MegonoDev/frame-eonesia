@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\b;
 
+use App\Helpers\Size;
 use App\Http\Controllers\b\BackendController;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 
 class PhotoController extends BackendController
 {
+    public function __construct()
+    {
+        $this->size = new Size;
+    }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.\
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,7 +55,11 @@ class PhotoController extends BackendController
      */
     public function show($id)
     {
-        //
+        $photo = Photo::findOrFail($id);
+        $bcrum = $this->bcrum('Photo Detail',route('photo.index'),'Photo');
+        $size  = $this->size->getSize($photo->frame->type_frame);
+
+        return view('backend.photo.show',compact('photo','bcrum','size'));
     }
 
     /**
