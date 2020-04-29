@@ -1,6 +1,6 @@
 @extends('layouts.backend.master-backend')
 @section('title')
-Dashboard
+List Frame
 @endsection
 @section('content')
 <div class="container-fluid">

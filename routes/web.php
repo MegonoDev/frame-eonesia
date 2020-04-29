@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['namespace' => 'b', 'prefix' => 'admin'], function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::resource('frame','FrameController');
+    Route::resource('photo','PhotoController',['only' => ['index']]);
     Route::get('prepare','FrameController@prepare')->name('frame.prepare');
 });
 

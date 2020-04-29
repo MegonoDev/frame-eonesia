@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Photo;
 
 class Frame extends Model
 {
@@ -13,4 +14,9 @@ class Frame extends Model
         'link_frame',
         'path_frame',
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }

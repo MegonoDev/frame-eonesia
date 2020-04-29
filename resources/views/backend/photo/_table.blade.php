@@ -1,0 +1,40 @@
+@if(!$photos->isEmpty())
+<table class="table table-responsive-sm table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Photo</th>
+            <th>Result</th>
+            <th>Frame</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($photos as $photo)
+        <tr>
+            <td> {{ $loop->iteration }} </td>
+            <td>
+                <img src="{{ asset('img/photo/'.$photo->path_photo) }}" alt="thumbnail" style="width:100px;height:100px">
+            </td>
+            <td>
+                <img src="{{ asset('img/result/'.$photo->path_result) }}" alt="thumbnail" style="width:100px;height:100px">
+            </td>
+            <td>
+                {{ $photo->frame->nama_frame }}
+            </td>
+            <td>
+                <a href="" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"> <i class="c-icon cil-image1"></i> </a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+    {{ $photos->links() }}
+</table>
+@else
+
+<div class="text-center text-muted">
+    <img src="{{ asset('assets/img/no-data.png') }}" width="200" height="200" alt="data not found">
+    <br>
+    Photo not Found
+</div>
+@endif

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Frame;
 
 class Photo extends Model
 {
@@ -12,4 +13,9 @@ class Photo extends Model
         'path_result',
         'id_frame',
     ];
+
+    public function frame()
+    {
+       return $this->belongsTo(Frame::class,'id_frame');
+    }
 }

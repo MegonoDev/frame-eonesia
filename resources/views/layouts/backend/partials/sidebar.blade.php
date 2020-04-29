@@ -19,7 +19,14 @@
         <li class="c-sidebar-nav-title">Frame Management</li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('frame.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-filter-frames"></i> List Frame
+                <i class="c-sidebar-nav-icon c-icon cil-filter-frames"></i> List Frame 
+            </a>
+        </li>
+
+        <li class="c-sidebar-nav-title">Photo Management</li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('photo.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-filter-frames"></i> List Photo
                 <span class="badge badge-info">NEW</span>
             </a>
         </li>
