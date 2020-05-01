@@ -79,4 +79,5 @@ class UploadController extends FrontendController
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'event_' . $id, $headers);
     }
+    
 }

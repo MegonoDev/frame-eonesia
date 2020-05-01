@@ -6,12 +6,13 @@ Show Photo
 
 <div class="container-fluid">
     <div class="fade-in">
-        <div class="col-12 col-sm-12 col-lg-12 d-flex align-items-center justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-12">
             <div class="card">
                 <div class="card-body">
 
-                    <div class="form-group text-center">
-                        <img src="{{ asset('img/result/'.$photo->path_result) }}" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
+                <div class="form-group text-center">
+                        <img src="{{ asset('img/result/'.$photo->path_result_thumb) }}" class="img-fluid" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
+                        <img src="{{ asset('img/photo/'.$photo->path_photo_thumb) }}"  class="img-fluid" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
                     </div>
 
 
@@ -24,6 +25,21 @@ Show Photo
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group text-center">
+                        <label><b>Download</b></label>
+                        <div class="controls">
+                            <a href="{{ route('downloadPhoto',$photo->path_photo) }}" class="btn btn-primary mb-2" type="button">
+                                <i class="c-icon mr-2 cil-image1">
+                                </i><span>Download Original</span>
+                            </a>
+                            <a href="{{ route('download',$photo->path_result) }}" class="btn btn-success mb-2" type="button">
+                            <i class="c-icon mr-2 cil-image1">
+                                </i><span>Download Result</span>
+                            </a>
+                        </div>
+                    </div>
+                    
 
                 </div>
                 <div class="card-footer">

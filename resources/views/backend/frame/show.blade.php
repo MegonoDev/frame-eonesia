@@ -10,7 +10,7 @@ Show Frame
             <div class="card">
                 <div class="card-body">
                     <div class="form-group text-center">
-                        <img src="{{ asset('img/frame/thumb_'.$frame->path_frame) }}" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
+                        <img src="{{ asset('img/frame/'.$frame->path_frame_thumb) }}" id="fg" style="width: {{ $size['width_thumb'] }}px;height:{{ $size['width_thumb'] }}px;" />
                     </div>
 
 

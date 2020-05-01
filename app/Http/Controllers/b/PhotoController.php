@@ -95,4 +95,12 @@ class PhotoController extends BackendController
     {
         //
     }
+
+    public function downloadPhoto($id)
+    {
+        $file = public_path() . '/img/photo/' . $id;
+        $headers = array('Content-Type: image/png',);
+        return response()->download($file, 'original_' . $id, $headers);
+    }
+    
 }
