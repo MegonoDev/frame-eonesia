@@ -33,7 +33,8 @@ class FrameController extends BackendController
         $paths = [
             public_path() . '/img/frame',
             public_path() . '/img/photo',
-            public_path() . '/img/result'
+            public_path() . '/img/result',
+            public_path() . '/img/zip'
         ];
         foreach ($paths as $path) {
             if (!File::isDirectory($path)) File::makeDirectory($path, 0775, true, true);
@@ -158,4 +159,6 @@ class FrameController extends BackendController
 
         return File::delete($path, $thumbnail);
     }
+
+
 }

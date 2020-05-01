@@ -7,6 +7,7 @@
             <th>Name</th>
             <th>Type</th>
             <th>URL</th>
+            <th>Photo</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
             <td>{{ $frame->nama_frame }}</td>
             <td>{{ $frame->type_frame }}</td>
             <td><a href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
+            <td><a href="{{ route('result.index',$frame->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Result"> <i class="c-icon cil-image1"></i> </td>
             <td>
                 <a href="{{ route('frame.edit',$frame->link_frame) }}" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit {{ $frame->nama_frame }}"> <i class="c-icon cil-pencil"></i> </a>
 

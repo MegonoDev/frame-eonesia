@@ -40,6 +40,8 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['namespace' => 'b', 'prefix' => 'admin'], function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::resource('frame','FrameController');
+    Route::get('frame/{id}/result/','ResultController@index')->name('result.index');
+    Route::get('frame/{id}/result/download/{name}.zip','ResultController@download')->name('result.download');
     Route::resource('photo','PhotoController',['only' => ['index','show']]);
     Route::get('photoDownload/{id}','PhotoController@downloadPhoto')->name('downloadPhoto');
     Route::get('prepare','FrameController@prepare')->name('frame.prepare');
