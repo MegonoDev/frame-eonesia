@@ -10,7 +10,9 @@ class Photo extends Model
     protected $table    = 'photos';
     protected $fillable = [
         'path_photo',
+        'path_photo_thumb',
         'path_result',
+        'path_result_thumb',
         'id_frame',
     ];
 

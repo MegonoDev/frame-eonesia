@@ -130,8 +130,9 @@ class FrameController extends BackendController
                 ->resize($size['width_thumb'], $size['height_thumb'])
                 ->save($destination . "/" . $thumbName);
 
-            $data['link_frame'] = $slug;
-            $data['path_frame'] = $fileName;
+            $data['link_frame']       = $slug;
+            $data['path_frame']       = $fileName;
+            $data['path_frame_thumb'] = $thumbName;
         }
         return $data;
     }

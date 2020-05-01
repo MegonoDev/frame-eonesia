@@ -14,10 +14,10 @@
         <tr>
             <td> {{ $loop->iteration }} </td>
             <td>
-                <img src="{{ asset('img/photo/'.$photo->path_photo) }}" alt="thumbnail" style="width:100px;height:100px">
+                <img src="{{ asset('img/photo/'.$photo->path_photo_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
             <td>
-                <img src="{{ asset('img/result/'.$photo->path_result) }}" alt="thumbnail" style="width:100px;height:100px">
+                <img src="{{ asset('img/result/'.$photo->path_result_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
             <td>
                 {{ $photo->frame->nama_frame }}

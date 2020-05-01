@@ -13,6 +13,7 @@ class Frame extends Model
         'type_frame',
         'link_frame',
         'path_frame',
+        'path_frame_thumb',
     ];
 
     public function photos()

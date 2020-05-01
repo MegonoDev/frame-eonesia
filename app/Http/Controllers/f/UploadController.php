@@ -40,44 +40,36 @@ class UploadController extends FrontendController
     }
     public function handleRequest($request)
     {
-        $destinationResult    =  public_path() . '/img/result/';
-        $destinationPhoto     =  public_path() . '/img/photo/';
-
-        $frame = DB::table('frames')->where('link_frame', $request->frame)->first();
-        $size = $this->size->getSize($frame->type_frame);
-
-        $imageArray1    = explode(";", $request->image);
-        $imageArray2    = explode(",", $imageArray1[1]);
-        $dataImage      = base64_decode($imageArray2[1]);
-        $resultName     = 'result_' . time() . '.png';
-        $photoName      = 'photo_'  . time() . '.png';
-        $uploadPhoto    = $destinationPhoto . $photoName;
-        $uploadResult   = $destinationResult . $resultName;
+        $frame             = DB::table('frames')->where('link_frame', $request->frame)->first();
+        $size              = $this->size->getSize($frame->type_frame);
+        $destinationResult =  public_path() . '/img/result/';
+        $destinationPhoto  =  public_path() . '/img/photo/';
+        $imageArray1       = explode(";", $request->image);
+        $imageArray2       = explode(",", $imageArray1[1]);
+        $dataImage         = base64_decode($imageArray2[1]);
+        $resultName        = 'result_' . time() . '.png';
+        $photoName         = 'photo_'  . time() . '.png';
+        $uploadPhoto       = $destinationPhoto . $photoName;
+        $uploadPhotoThumb  = $destinationPhoto . 'thumb_' . $photoName;
+        $uploadResult      = $destinationResult . $resultName;
+        $uploadResultThumb = $destinationResult . 'thumb_' . $resultName;
+        $frameImage        = public_path() . '/img/frame/' . $frame->path_frame;
         //simpan foto asli
-        Image::make($dataImage)
-        ->resize($size['width'], $size['height'])->save($uploadPhoto);
-        Image::make($dataImage)
-            ->resize($size['width'], $size['height'])->save($uploadResult);
-
-        $frameImage     = public_path() . '/img/frame' . DIRECTORY_SEPARATOR . $frame->path_frame;
-
-        $source         = imagecreatefrompng($uploadResult);
-        $watermark      = imagecreatefrompng($frameImage);
-        $waterWidth    = imagesx($watermark);
-        $waterHeight   = imagesy($watermark);
-        // Menetapkan posisi gambar watermark
-        $dimeX         = 0;
-        $dimeY         = 0;
-        // menyalin kedua gambar
-        imagecopy($source, $watermark, $dimeX, $dimeY, 0, 0, $waterWidth, $waterHeight);
-
-        // pemrosesan akhir, Membuat gambar baru dengan nama file baru
-        imagejpeg($source, $uploadResult, 300);
-
+        Image::make($dataImage)->resize($size['width'], $size['height'])->save($uploadPhoto);
+        //simpan foto asli thumb
+        Image::make($dataImage)->resize($size['width_thumb'], $size['height_thumb'])->save($uploadPhotoThumb);
+        //simpan hasil insert frame
+        $img = Image::make($dataImage)->resize($size['width'], $size['height']);
+        $img->insert($frameImage, 'center', 0, 0)->save($uploadResult);
+        //simpan hasil insert frame thumb
+        Image::make($uploadResult)->resize($size['width_thumb'], $size['height_thumb'])->save($uploadResultThumb);
+        
         $data = [
-            'path_photo'  => $photoName,
-            'path_result' => $resultName,
-            'id_frame'    => $frame->id,
+            'path_photo'        => $photoName,
+            'path_photo_thumb'  => 'thumb_'.$photoName,
+            'path_result'       => $resultName,
+            'path_result_thumb' => 'thumb_'.$resultName,
+            'id_frame'          => $frame->id,
         ];
         return $data;
     }

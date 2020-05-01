@@ -15,7 +15,7 @@
         <tr>
             <td> {{ $loop->iteration }} </td>
             <td width="5%">
-                <img src="{{ asset('img/frame/thumb_'.$frame->path_frame) }}" alt="thumbnail" style="width:100px;height:100px">
+                <img src="{{ asset('img/frame/'.$frame->path_frame_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
             <td>{{ $frame->nama_frame }}</td>
             <td>{{ $frame->type_frame }}</td>
@@ -34,7 +34,7 @@
 <div class="text-center text-muted">
     <img src="{{ asset('assets/img/no-data.png') }}" width="200" height="200" alt="data not found">
     <br>
-    Frame not Found<br/>
+    Frame not Found<br />
     <a href="{{ route('frame.prepare') }}" class="btn btn-warning">
         <i class="c-icon cil-folder-open"></i>
         Make Folder First.
