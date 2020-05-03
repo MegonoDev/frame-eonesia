@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class BackendController extends Controller
 {
     protected $limit = 10;
-
+    protected $pathBackground = 'img/bg';
     protected function bcrum($current, $urlSecond = null, $nameSecond = null)
     {
         return [

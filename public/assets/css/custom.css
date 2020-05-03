@@ -7,3 +7,8 @@
 .bg-dark-green {
     background-color: darkgreen;
 }
+
+.img-bg {
+    max-height: 300px;
+    max-width: auto;
+}

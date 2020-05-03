@@ -41,6 +41,7 @@ class UploadController extends FrontendController
     public function handleRequest($request)
     {
         $frame             = DB::table('frames')->where('link_frame', $request->frame)->first();
+        if (!$frame) return $this->gagalInput();
         $size              = $this->size->getSize($frame->type_frame);
         $destinationResult =  public_path() . '/img/result/';
         $destinationPhoto  =  public_path() . '/img/photo/';
@@ -63,12 +64,12 @@ class UploadController extends FrontendController
         $img->insert($frameImage, 'center', 0, 0)->save($uploadResult);
         //simpan hasil insert frame thumb
         Image::make($uploadResult)->resize($size['width_thumb'], $size['height_thumb'])->save($uploadResultThumb);
-        
+
         $data = [
             'path_photo'        => $photoName,
-            'path_photo_thumb'  => 'thumb_'.$photoName,
+            'path_photo_thumb'  => 'thumb_' . $photoName,
             'path_result'       => $resultName,
-            'path_result_thumb' => 'thumb_'.$resultName,
+            'path_result_thumb' => 'thumb_' . $resultName,
             'id_frame'          => $frame->id,
         ];
         return $data;
@@ -79,5 +80,9 @@ class UploadController extends FrontendController
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'event_' . $id, $headers);
     }
-    
+
+    public function gagalInput()
+    {
+        return response()->json(['result' => 'failed', 'code' => '400']);
+    }
 }

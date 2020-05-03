@@ -39,19 +39,23 @@ Route::group(['namespace' => 'Auth'], function () {
 
 Route::group(['namespace' => 'b', 'prefix' => 'admin'], function () {
     Route::get('home', 'HomeController@index')->name('home');
-    Route::resource('frame','FrameController');
-    Route::get('frame/{id}/result/','ResultController@index')->name('result.index');
-    Route::get('frame/{id}/result/download/{name}.zip','ResultController@download')->name('result.download');
-    Route::resource('photo','PhotoController',['only' => ['index','show']]);
-    Route::get('photoDownload/{id}','PhotoController@downloadPhoto')->name('downloadPhoto');
-    Route::get('prepare','FrameController@prepare')->name('frame.prepare');
+    Route::resource('frame', 'FrameController');
+    Route::get('frame/{id}/result/', 'ResultController@index')->name('result.index');
+    Route::get('frame/{id}/result/download/{name}.zip', 'ResultController@download')->name('result.download');
+
+    Route::resource('background', 'BackgroundController');
+    Route::post('preview/background', 'BackgroundController@preview')->name('background.preview');
+
+    Route::resource('photo', 'PhotoController', ['only' => ['index', 'show']]);
+    Route::get('photoDownload/{id}', 'PhotoController@downloadPhoto')->name('downloadPhoto');
+    Route::get('prepare', 'FrameController@prepare')->name('frame.prepare');
 });
 
 
 
 Route::group(['namespace' => 'f',], function () {
     Route::get('/', 'FrontendController@index')->name('frontend.index');
-    Route::get('frame/{id}','UploadController@upload')->name('upload');
-    Route::post('frame/{id}','UploadController@store')->name('upload.store');
-    Route::get('download/{id}','UploadController@download')->name('download');
+    Route::get('frame/{id}', 'UploadController@upload')->name('upload');
+    Route::post('frame/{id}', 'UploadController@store')->name('upload.store');
+    Route::get('download/{id}', 'UploadController@download')->name('download');
 });

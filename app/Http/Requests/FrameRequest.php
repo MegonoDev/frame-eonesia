@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Background;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FrameRequest extends FormRequest
@@ -28,7 +29,8 @@ class FrameRequest extends FormRequest
             'nama_frame' => 'required',
             'type_frame' => 'required|in:square,portrait,landscape,story',
             'link_frame' => 'nullable|unique:frames',
-            'frame'      => 'image|required'
+            'frame'      => 'image|required',
+            'id_bg'      => ['required',Rule::in(Background::pluck('id'))]
         ];
     }
 }

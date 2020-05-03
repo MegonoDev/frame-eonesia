@@ -26,7 +26,7 @@
         <li class="c-sidebar-nav-title">Photo Management</li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('photo.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-filter-frames"></i> List Photo
+                <i class="c-sidebar-nav-icon c-icon cil-image1"></i> List Photo
                 <span class="badge badge-info">NEW</span>
             </a>
         </li>

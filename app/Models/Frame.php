@@ -14,10 +14,16 @@ class Frame extends Model
         'link_frame',
         'path_frame',
         'path_frame_thumb',
+        'id_bg',
     ];
 
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function backgrounds()
+    {
+        return $this->belongsTo(Background::class);
     }
 }

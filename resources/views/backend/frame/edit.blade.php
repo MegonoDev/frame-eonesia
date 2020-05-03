@@ -73,6 +73,24 @@ Edit Frame
                             </div>
 
                             <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label for="id_bg">Background</label>
+                                    {{
+                                    Form::select('id_bg', 
+                                    [   ''             => '-- Choose Background --',]+
+                                        $backgrounds->toArray(),
+                                     $frame->id_bg,
+                                     [
+                                        'class' => "form-control $errors->has('id_bg') ? 'is-invalid' : '')",
+                                        'id'    => 'id_bg'
+                                        ]
+                                        )
+                                }}
+                                    {!! $errors->first('id_bg', '<div class="invalid-feedback">:message</div>') !!}
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="form-group col-sm-12">
                                     <label for="nama_frame">Name or Title</label>
                                     <input name="nama_frame" class="form-control {{ $errors->has('nama_frame') ? 'is-invalid' : '' }}" id="nama_frame" type="text" placeholder="Frame Name" value="{{ $frame->nama_frame }}">

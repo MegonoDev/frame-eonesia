@@ -9,6 +9,7 @@ use Intervention\Image\Facades\Image;
 use App\Models\Frame;
 use App\Http\Requests\FrameRequest;
 use App\Http\Controllers\b\BackendController;
+use App\Models\Background;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\DB;
@@ -31,10 +32,11 @@ class FrameController extends BackendController
     public function prepare()
     {
         $paths = [
+            public_path() . '/img/bg',
             public_path() . '/img/frame',
             public_path() . '/img/photo',
             public_path() . '/img/result',
-            public_path() . '/img/zip'
+            public_path() . '/img/zip',
         ];
         foreach ($paths as $path) {
             if (!File::isDirectory($path)) File::makeDirectory($path, 0775, true, true);
@@ -51,9 +53,10 @@ class FrameController extends BackendController
 
     public function create()
     {
-        $bcrum = $this->bcrum('Create Frame', route('frame.index'), 'Frame');
+        $bcrum      = $this->bcrum('Create Frame', route('frame.index'), 'Frame');
+        $backgrounds = Background::pluck('nama_bg','id');
 
-        return view('backend.frame.create', compact('bcrum'));
+        return view('backend.frame.create', compact('bcrum','backgrounds'));
     }
 
     public function store(FrameRequest $request)
@@ -135,6 +138,8 @@ class FrameController extends BackendController
             $data['path_frame']       = $fileName;
             $data['path_frame_thumb'] = $thumbName;
         }
+        $background     = Background::findOrFail($request->id_bg);
+        if($background)
         return $data;
     }
 
