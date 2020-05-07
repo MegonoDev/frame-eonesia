@@ -13,8 +13,8 @@ class Size
             case 'landscape':
                 $width = 1080;  //  ratio: 1.91:1
                 $height = 608;
-                $width_thumb = 500;
-                $height_thumb = 300;
+                $width_thumb = 300;
+                $height_thumb = 200;
                 break;
             case 'portrait':
                 $width = 1080;  //  ratio: 4:5

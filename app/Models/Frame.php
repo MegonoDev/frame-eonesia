@@ -22,8 +22,8 @@ class Frame extends Model
         return $this->hasMany(Photo::class);
     }
 
-    public function backgrounds()
+    public function background()
     {
-        return $this->belongsTo(Background::class);
+        return $this->belongsTo(Background::class,'id_bg');
     }
 }

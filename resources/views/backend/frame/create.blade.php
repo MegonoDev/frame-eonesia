@@ -68,7 +68,7 @@ Create Frame
 
                         <div class="row">
                             <div class="form-group col-sm-4">
-                                <label for="id_bg">Background Page</label>
+                                <label for="id_bg">Background Image</label>
                                 {{
                                     Form::select('id_bg', 
                                     [   ''             => '-- Choose Background --',]+

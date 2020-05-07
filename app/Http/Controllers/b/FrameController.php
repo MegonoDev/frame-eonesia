@@ -54,9 +54,9 @@ class FrameController extends BackendController
     public function create()
     {
         $bcrum      = $this->bcrum('Create Frame', route('frame.index'), 'Frame');
-        $backgrounds = Background::pluck('nama_bg','id');
+        $backgrounds = Background::pluck('nama_bg', 'id');
 
-        return view('backend.frame.create', compact('bcrum','backgrounds'));
+        return view('backend.frame.create', compact('bcrum', 'backgrounds'));
     }
 
     public function store(FrameRequest $request)
@@ -79,10 +79,11 @@ class FrameController extends BackendController
     public function edit($id)
     {
         $frame = DB::table('frames')->where('link_frame', $id)->first();
+        $backgrounds = Background::pluck('nama_bg', 'id');
 
         $bcrum = $this->bcrum('Edit Frame', route('frame.index'), 'Frame');
 
-        return view('backend.frame.edit', compact('frame', 'bcrum'));
+        return view('backend.frame.edit', compact('frame','backgrounds','bcrum'));
     }
 
     public function update(Request $request, $id)
@@ -138,8 +139,6 @@ class FrameController extends BackendController
             $data['path_frame']       = $fileName;
             $data['path_frame_thumb'] = $thumbName;
         }
-        $background     = Background::findOrFail($request->id_bg);
-        if($background)
         return $data;
     }
 
@@ -164,6 +163,4 @@ class FrameController extends BackendController
 
         return File::delete($path, $thumbnail);
     }
-
-
 }

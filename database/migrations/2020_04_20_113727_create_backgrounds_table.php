@@ -16,9 +16,8 @@ class CreateBackgroundsTable extends Migration
         Schema::create('backgrounds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_bg');
-            $table->string('type_bg');
             $table->string('path_bg');
-            $table->string('color_bg');
+            $table->string('path_bg_thumb');
             $table->timestamps();
         });
     }

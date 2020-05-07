@@ -6,6 +6,7 @@ use App\Http\Controllers\f\FrontendController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Helpers\Size;
+use App\Models\Frame;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Facades\Image;
 use App\Models\Photo;
@@ -19,7 +20,7 @@ class UploadController extends FrontendController
     }
     public function upload($id)
     {
-        $frame = DB::table('frames')->where('link_frame', $id)->first();
+        $frame = Frame::where('link_frame', $id)->first();
         $size = $this->size->getSize($frame->type_frame, true);
         return view('frontend.upload.upload', compact('size', 'frame'));
     }

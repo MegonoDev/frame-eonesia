@@ -15,6 +15,15 @@ Create Background
                     </div>
                     <div class="card-body">
 
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="nama_bg">Background Name</label>
+                                <input name="nama_bg" class="form-control {{ $errors->has('nama_bg') ? 'is-invalid' : '' }}" id="nama_bg" type="text" placeholder="Background Name">
+                                {!! $errors->first('nama_bg', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="background">Background Image</label>
@@ -41,53 +50,12 @@ Create Background
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <label for="type_bg">Background Type</label>
-                                <div class="form-inline">
-                                    <div class="custom-control custom-radio mr-3">
-                                        <input type="radio" class="custom-control-input" id="type_bg_image" name="type_bg" value="image">
-                                        <label class="custom-control-label" for="type_bg_image">Image</label>
-                                    </div>
-                                    <div class="custom-control custom-radio mr-3">
-                                        <input type="radio" class="custom-control-input" id="type_bg_solid" name="type_bg" value="solid">
-                                        <label class="custom-control-label" for="type_bg_solid">Solid Color</label>
-                                    </div>
-                                    <div class="custom-control custom-radio mr-3">
-                                        <input type="radio" class="custom-control-input" id="type_bg_gradient" name="type_bg" value="gradient">
-                                        <label class="custom-control-label" for="type_bg_gradient">Gradient Color</label>
-                                    </div>
-                                </div>
-                                {!! $errors->first('type_bg', '<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <label for="nama_bg">Background Name</label>
-                                <input name="nama_bg" class="form-control {{ $errors->has('nama_bg') ? 'is-invalid' : '' }}" id="nama_bg" type="text" placeholder="Background Name">
-                                {!! $errors->first('nama_bg', '<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <label for="color_bg">Color</label>
-                                <textarea name="color_bg" data-role="tagsinput" class="form-control {{ $errors->has('color_bg') ? 'is-invalid' : '' }}" id="color_bg" type="text" placeholder="#fff,#000"></textarea>
-                                <p class="help-block">separate hex color with comma</p>
-                                {!! $errors->first('color_bg', '<div class="invalid-feedback">:message</div>') !!}
-                            </div>
-                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-12 d-flex justify-content-end">
                                 <button type="submit" class="btn  btn-outline-primary">
                                     <i class="c-icon cil-check"></i> Save
-                                </button>
-
-                                <button type="submit" name="stay" class="btn btn-primary mx-3">
-                                    <i class="c-icon cil-check"></i> Save and create another
                                 </button>
 
                             </div>
@@ -109,7 +77,7 @@ Create Background
 
 <script>
     $(document).ready(function() {
-        
+
         $('#background').change(function() {
             var file = this.files[0];
             var reader = new FileReader();
@@ -125,42 +93,6 @@ Create Background
             reader.readAsDataURL(file);
         });
 
-        $('#id_bg').change(function() {
-            getPreviewImage();
-        })
-
-        function getPreviewImage() {
-            var id = $('#id_bg').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('background.preview') }}",
-                type: "POST",
-                data: {
-                    "id": id,
-                    "_token": '{{csrf_token()}}'
-
-                },
-                success: function(data) {
-                    if (data.result == 'success') {
-                        var background = data.image;
-                        var text = '<img src="' + data.image + '" class="img-thumbnail mb-3 img-fluid img-bg" />';
-
-                        // $('#uploadimageModal').modal('hide');
-                        $('#img-preview').html(text);
-                        $('#preview').fadeIn(500);
-                        $("#file-drag").show();
-                        $("#catatan").hide();
-                    } else {
-                        alert(data.message);
-                    }
-                }
-            });
-        }
     });
 </script>
 @endpush

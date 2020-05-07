@@ -5,6 +5,10 @@ namespace App\Http\Controllers\b;
 use App\Http\Controllers\b\BackendController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use App\Models\Background;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class BackgroundController extends BackendController
@@ -38,7 +42,19 @@ class BackgroundController extends BackendController
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->handleRequest($request);
+        $create = Background::create($data);
+        if ($create) {
+            Session::flash('flash_notification', [
+                'title'   => 'Successful!',
+                'level'   => 'success',
+                'message' => 'Background successfully added.'
+            ]);
+
+            $redirect = ($request->has('stay')) ? 'background.create' : 'background.index';
+
+            return redirect()->route($redirect);
+        }
     }
 
     /**
@@ -84,6 +100,38 @@ class BackgroundController extends BackendController
     public function destroy($id)
     {
         //
+    }
+
+    public function handleRequest($request)
+    {
+        $data        = $request->all();
+        $size        = [
+            'width' => '1920',
+            'height' => '1080',
+            'dpi' => '72',
+        ];
+        $slug        = Str::slug($request->nama_bg);
+        if ($request->has('background')) {
+            $background       = $request->file('background');
+            $extension   = $background->guessClientExtension();
+            $fileName    = 'bg_' . $slug . '_' . date('dmy_His') . '.' . $extension;
+            $thumbName   = "thumb_" . $fileName;
+            $destination = public_path() . '/img/bg';
+
+            Image::make($background->getRealPath())
+                ->resize($size['width'], $size['height'])
+                ->save($destination . "/" . $fileName);
+
+            Image::make($background->getRealPath())
+                ->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode('png', $size['dpi'])
+                ->save($destination . "/" . $thumbName);
+
+            $data['path_bg']       = $fileName;
+            $data['path_bg_thumb'] = $thumbName;
+        }
+        return $data;
     }
 
     public function preview(Request $request)
