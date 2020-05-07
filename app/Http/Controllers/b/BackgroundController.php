@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use App\Models\Background;
+use File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,10 @@ class BackgroundController extends BackendController
      */
     public function index()
     {
-        //
+        $backgrounds = Background::latest()->paginate($this->limit);
+        $bcrum = $this->bcrum('Background Image');
+
+        return view('backend.background.index', compact('backgrounds', 'bcrum'));
     }
 
     /**
@@ -76,7 +80,10 @@ class BackgroundController extends BackendController
      */
     public function edit($id)
     {
-        //
+        $background = Background::where('id', $id)->first();
+        $bcrum = $this->bcrum('Edit Background', route('background.index'), 'Background');
+
+        return view('backend.background.edit', compact('bcrum', 'background'));
     }
 
     /**
@@ -88,8 +95,21 @@ class BackgroundController extends BackendController
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->handleRequest($request);
+        $background = Background::where('id', $id)->first();
+        $oldBackground = $background->path_bg;
+        $background->update($data);
+
+        if ($oldBackground !== $background->path_bg) $this->deleteImage($oldBackground);
+
+        Session::flash('flash_notification', [
+            'title'   => 'Successful!',
+            'level'   => 'success',
+            'message' => 'Background successfully edited.'
+        ]);
+        return redirect()->route('background.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -99,7 +119,16 @@ class BackgroundController extends BackendController
      */
     public function destroy($id)
     {
-        //
+        $background = Background::where('id', $id)->first();
+        $this->deleteImage($background->path_bg);
+        $background->delete();
+
+        Session::flash('flash_notification', [
+            'title'   => 'Successful!',
+            'level'   => 'error',
+            'message' => 'Background successfully deleted.'
+        ]);
+        return redirect()->route('background.index');
     }
 
     public function handleRequest($request)
@@ -149,5 +178,14 @@ class BackgroundController extends BackendController
             }
             return $result;
         }
+    }
+    public function deleteImage($filename)
+    {
+        $path = public_path() . DIRECTORY_SEPARATOR . 'img/bg'
+            . DIRECTORY_SEPARATOR . $filename;
+        $thumbnail = public_path() . DIRECTORY_SEPARATOR . 'img/bg'
+            . DIRECTORY_SEPARATOR . 'thumb_' . $filename;
+
+        return File::delete($path, $thumbnail);
     }
 }

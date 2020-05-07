@@ -33,7 +33,7 @@ Create Frame
                                         </div>
                                         <div id="frame_show" class="file-upload-content">
                                             <img class="file-upload-image" id="frame_thumb" src="#" alt="Foto" />
-                                            <button class="btn btn-danger btn-block mt-3" id="button_ktp" type="button" style="border-radius:0;" onclick="$('#frame').trigger( 'click' )">Ganti Foto</button>
+                                            <button class="btn btn-danger btn-block mt-3" id="button_frame" type="button" style="border-radius:0;" onclick="$('#frame').trigger( 'click' )">Ganti Foto</button>
                                         </div>
                                     </div>
                                     {!! $errors->first('frame', '<div class="invalid-feedback">:message</div>') !!}
@@ -145,8 +145,8 @@ Create Frame
 
             reader.onload = function(e) {
                 $('#frame_wrap').hide();
-                $('#button_ktp').html('Change Frame');
-                $('#button_ktp').attr('class', 'btn btn-block btn-danger');
+                $('#button_frame').html('Change Frame');
+                $('#button_frame').attr('class', 'btn btn-block btn-danger');
                 $('#frame_thumb').attr('src', e.target.result);
                 $('#frame_show').fadeIn(200);
                 $('#image-title_frame').html('file : ' + file.name);

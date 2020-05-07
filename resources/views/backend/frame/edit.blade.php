@@ -32,7 +32,7 @@ Edit Frame
                                             <div class="text-center mt-2 mb-0">
                                                 <span id="image-title_frame"></span>
                                             </div>
-                                            <button class="btn btn-secondary btn-block mt-2" id="button_ktp" type="button" onclick="$('#frame').trigger( 'click' )">Change Frame</button>
+                                            <button class="btn btn-secondary btn-block mt-2" id="button_frame" type="button" onclick="$('#frame').trigger( 'click' )">Change Frame</button>
                                         </div>
                                     </div>
                                 </div>
@@ -228,8 +228,8 @@ Edit Frame
 
             reader.onload = function(e) {
                 $('#frame_wrap').hide();
-                $('#button_ktp').html('Change Frame');
-                $('#button_ktp').attr('class', 'mt-2 btn btn-outline-dark btn-block');
+                $('#button_frame').html('Change Frame');
+                $('#button_frame').attr('class', 'mt-2 btn btn-outline-dark btn-block');
                 $('#frame_thumb').attr('src', e.target.result);
                 $('#frame_show').fadeIn(200);
                 $('#image-title_frame').html('file : ' + file.name);

@@ -42,7 +42,7 @@ Create Background
                                         </div>
                                         <div id="background_show" class="file-upload-content">
                                             <img class="file-upload-image" id="background_thumb" src="#" alt="Foto" />
-                                            <button class="btn btn-danger btn-block mt-3" id="button_ktp" type="button" style="border-radius:0;" onclick="$('#background').trigger( 'click' )">Ganti Foto</button>
+                                            <button class="btn btn-danger btn-block mt-3" id="button_bg" type="button" style="border-radius:0;" onclick="$('#background').trigger( 'click' )">Ganti Foto</button>
                                         </div>
                                     </div>
                                     {!! $errors->first('background', '<div class="invalid-feedback">:message</div>') !!}
@@ -84,8 +84,8 @@ Create Background
 
             reader.onload = function(e) {
                 $('#background_wrap').hide();
-                $('#button_ktp').html('Change background');
-                $('#button_ktp').attr('class', 'btn btn-block btn-danger');
+                $('#button_bg').html('Change background');
+                $('#button_bg').attr('class', 'btn btn-block btn-danger');
                 $('#background_thumb').attr('src', e.target.result);
                 $('#background_show').fadeIn(200);
                 $('#image-title_background').html('file : ' + file.name);

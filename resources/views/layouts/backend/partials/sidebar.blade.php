@@ -16,6 +16,14 @@
                 <i class="c-sidebar-nav-icon c-icon cil-home"></i> Dashboard
             </a>
         </li>
+
+        <li class="c-sidebar-nav-title">Background Management</li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('background.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-image1"></i> List Background 
+            </a>
+        </li>
+
         <li class="c-sidebar-nav-title">Frame Management</li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('frame.index') }}">
