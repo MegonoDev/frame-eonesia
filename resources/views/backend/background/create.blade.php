@@ -33,7 +33,7 @@ Create Background
                                             <span id="image-title_background"></span>
                                         </div>
                                         <div class="image-upload-wrap" id="background_wrap">
-                                            <input name="background" id="background" class="upload-hidden" type='file' accept="image/png" />
+                                            <input name="background" id="background" class="upload-hidden" type='file' accept="image/*" />
                                             <h3>DRAG</h3>
                                             <div class="text-center">
                                                 OR
