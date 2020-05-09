@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\b;
 
 use App\Http\Controllers\b\BackendController;
+use App\Http\Requests\BackgroundRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -44,7 +45,7 @@ class BackgroundController extends BackendController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BackgroundRequest $request)
     {
         $data = $this->handleRequest($request);
         $create = Background::create($data);
