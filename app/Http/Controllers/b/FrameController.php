@@ -83,7 +83,7 @@ class FrameController extends BackendController
 
         $bcrum = $this->bcrum('Edit Frame', route('frame.index'), 'Frame');
 
-        return view('backend.frame.edit', compact('frame','backgrounds','bcrum'));
+        return view('backend.frame.edit', compact('frame', 'backgrounds', 'bcrum'));
     }
 
     public function update(Request $request, $id)
@@ -113,6 +113,25 @@ class FrameController extends BackendController
         $size  = $this->size->getSize($frame->type_frame);
         $bcrum = $this->bcrum('Show Frame', route('frame.index'), 'Frame');
         return view('backend.frame.show', compact('size', 'frame', 'bcrum'));
+    }
+
+    public function destroy($id)
+    {
+        $frame = Frame::where('id', $id)->first();
+        $this->deleteImage($frame->path_frame);
+        $frame->delete();
+        Session::flash('flash_notification', [
+            'title'   => 'Successful!',
+            'level'   => 'error',
+            'message' => 'Frame successfully deleted.'
+        ]);
+        $result = [
+            'result' => 'ok',
+            'code'   => '200',
+            'url'    => route('frame.index')
+        ];
+
+        return response()->json($result);
     }
 
     public function handleRequest($request)

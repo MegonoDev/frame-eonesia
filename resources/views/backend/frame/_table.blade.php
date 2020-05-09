@@ -27,9 +27,14 @@
             <td><a href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
             <td><a href="{{ route('result.index',$frame->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Result"> <i class="c-icon cil-image1"></i> </td>
             <td>
-                <a href="{{ route('frame.edit',$frame->link_frame) }}" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit {{ $frame->nama_frame }}"> <i class="c-icon cil-pencil"></i> </a>
+                <form id="delete_{{ $frame->id }}" action="{{ route('frame.destroy',$frame->id) }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    @csrf
+                    <a href="{{ route('frame.edit',$frame->link_frame) }}" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit {{ $frame->nama_frame }}"> <i class="c-icon cil-pencil"></i> </a>
 
-                <a href="{{ route('frame.show',$frame->link_frame) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show {{ $frame->nama_frame }}"> <i class="c-icon cil-image1"></i> </a>
+                    <a href="{{ route('frame.show',$frame->link_frame) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show {{ $frame->nama_frame }}"> <i class="c-icon cil-image1"></i> </a>
+                    <button type="button" value="{{ $frame->id }}" class="del btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="c-icon cil-trash"></i></button>
+                </form>
 
         </tr>
         @endforeach
