@@ -48,7 +48,7 @@ class FrameController extends BackendController
             'message' => 'Preparation Completed'
         ]);
 
-        return redirect()->route('frame.index');
+        return redirect()->back();
     }
 
     public function create()
