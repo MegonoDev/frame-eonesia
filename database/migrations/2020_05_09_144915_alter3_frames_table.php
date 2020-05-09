@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Alter2FramesTable extends Migration
+class Alter3FramesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,10 @@ class Alter2FramesTable extends Migration
     public function up()
     {
         Schema::table('frames', function (Blueprint $table) {
-            $table->bigInteger('id_bg')->after('link_frame')->unsigned()->nullable();
-            $table->foreign('id_bg')->references('id')->on('backgrounds');
+            $table->dropForeign(['id_bg']);
+            $table->foreign('id_bg')
+                ->references('id')->on('backgrounds')
+                ->onDelete('set null');
         });
     }
 

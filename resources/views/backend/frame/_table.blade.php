@@ -20,7 +20,7 @@
                 <img src="{{ asset('img/frame/'.$frame->path_frame_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
             <td width="5%">
-                <img src="{{ asset('img/bg/'.$frame->background->path_bg_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
+                <img src="{{ asset(($frame->id_bg == null) ? 'assets/img/default-landscape.png' : 'img/bg/'.$frame->background->path_bg_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
             <td>{{ $frame->nama_frame }}</td>
             <td>{{ $frame->type_frame }}</td>

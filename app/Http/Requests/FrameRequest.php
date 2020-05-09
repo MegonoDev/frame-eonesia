@@ -31,7 +31,7 @@ class FrameRequest extends FormRequest
             'type_frame' => 'required|in:square,portrait,landscape,story',
             'link_frame' => 'nullable|unique:frames',
             'frame'      => 'image|required',
-            'id_bg'      => ['required',Rule::in(Background::pluck('id'))]
+            'id_bg'      => ['nullable',Rule::in(Background::pluck('id'))]
         ];
     }
 }

@@ -88,6 +88,10 @@ Edit Frame
                                 }}
                                     {!! $errors->first('id_bg', '<div class="invalid-feedback">:message</div>') !!}
                                 </div>
+                                <div class="form-group col-sm-8" id="preview" style="display:none;">
+                                    <label>Preview</label>
+                                    <div id="img-preview"></div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -237,6 +241,46 @@ Edit Frame
             reader.readAsDataURL(file);
         });
 
+        $('#id_bg').change(function() {
+            getPreviewImage();
+        })
+
+        function getPreviewImage() {
+            var id = $('#id_bg').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            if (id !== '') {
+                $.ajax({
+                    url: "{{ route('background.preview') }}",
+                    type: "POST",
+                    data: {
+                        "id": id,
+                        "_token": '{{csrf_token()}}'
+
+                    },
+                    success: function(data) {
+                        if (data.result == 'success') {
+                            var background = data.image;
+                            var text = '<img src="' + data.image + '" class="img-thumbnail mb-3 img-fluid img-bg" />';
+
+                            // $('#uploadimageModal').modal('hide');
+                            $('#img-preview').html(text);
+                            $('#preview').fadeIn(500);
+                            $("#file-drag").show();
+                            $("#catatan").hide();
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            } else {
+                $('#preview').fadeOut(500);
+            }
+        }
     });
 </script>
 @endpush

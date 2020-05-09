@@ -18,13 +18,14 @@ Edit Background
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="background">Background</label>
+                                <small class="help-block">(.png file extension)</small>
                                 <div class="col-md-12">
                                     <div class="file-upload text-center">
                                         <div id="background_show" class="file-upload-content">
                                             <img class="img-fluid mb-2" id="background_thumb" src="" alt="Foto" />
                                         </div>
                                         <div id="background_wrap">
-                                            <input name="background" id="background" type="file" accept="image/*" style="display:none;" />
+                                            <input name="background" id="background" type="file" accept="image/png" style="display:none;" />
                                             <img src="{{ asset('img/bg/'.$background->path_bg_thumb) }}">
                                         </div>
                                         <div class="text-center mt-2 mb-0">

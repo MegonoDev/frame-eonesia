@@ -27,6 +27,7 @@ Create Background
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="background">Background Image</label>
+                                <small class="help-block">(.png file extension)</small>
                                 <div class="col-md-8">
                                     <div class="file-upload">
                                         <div class="text-center mb-0">

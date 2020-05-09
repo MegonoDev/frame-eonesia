@@ -128,7 +128,12 @@ class BackgroundController extends BackendController
             'level'   => 'error',
             'message' => 'Background successfully deleted.'
         ]);
-        return redirect()->route('background.index');
+        $result = [
+            'result' => 'ok',
+            'code'   => '200',
+            'url'    => route('background.index')
+        ];
+        return response()->json($result);
     }
 
     public function handleRequest($request)

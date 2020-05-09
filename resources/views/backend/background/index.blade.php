@@ -45,9 +45,9 @@ List Background
 <script>
     $(document).ready(function() {
 
-        $('.delete').click(function() {
+        $('.del').click(function() {
 
-            var id = $(this).data(id);
+            var id = $(this).val();
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -58,10 +58,51 @@ List Background
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-                    
+                    delete_bg(id);
                 }
             })
         })
+
+        function delete_bg(id) {
+            var url = $('#delete_' + id).attr('action');
+            var data = $('#delete_' + id).serialize();
+            var method = "POST";
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: data,
+                success: function(response) {
+                    if (response.code == "200") {
+                        Swal.fire(
+                            'Success!',
+                            'Background deleted',
+                            'success'
+                        )
+                        backTo(response.url);
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Can\'t delete background',
+                            'warning'
+                        )
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: "Warning!",
+                        text: xhr.errors,
+                        icon: "warning",
+                        button: "OK!",
+                        closeOnClickOutside: false
+                    });
+                }
+            })
+        }
+
+        function backTo(url) {
+            window.location.href = url;
+        }
     })
 </script>
 

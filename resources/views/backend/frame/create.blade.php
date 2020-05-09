@@ -166,6 +166,7 @@ Create Frame
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            if (id !== '') {
             $.ajax({
                 url: "{{ route('background.preview') }}",
                 type: "POST",
@@ -189,6 +190,9 @@ Create Frame
                     }
                 }
             });
+            }else{
+                $('#preview').fadeOut(500);
+            }
         }
     });
 </script>
