@@ -6,6 +6,7 @@ use App\Helpers\Size;
 use App\Http\Controllers\b\BackendController;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use File;
 
 class PhotoController extends BackendController
 {
@@ -93,7 +94,18 @@ class PhotoController extends BackendController
      */
     public function destroy($id)
     {
-        //
+        $photo = Photo::where('id', $id)->first();
+        $this->deletePhoto($photo->path_photo,'img/photo');
+        $this->deletePhoto($photo->path_result,'img/result');
+        $photo->delete();
+        $this->notification('error','Successful!','Image successfully deleted.');
+        $result = [
+            'result' => 'ok',
+            'code'   => '200',
+            'url'    => route('photo.index')
+        ];
+
+        return response()->json($result);
     }
 
     public function downloadPhoto($id)
@@ -101,6 +113,15 @@ class PhotoController extends BackendController
         $file = public_path() . '/img/photo/' . $id;
         $headers = array('Content-Type: image/png',);
         return response()->download($file, 'original_' . $id, $headers);
+    }
+    public function deletePhoto($filename,$folder)
+    {
+        $path = public_path() . DIRECTORY_SEPARATOR . $folder
+            . DIRECTORY_SEPARATOR . $filename;
+        $thumbnail = public_path() . DIRECTORY_SEPARATOR . $folder
+            . DIRECTORY_SEPARATOR . 'thumb_' . $filename;
+
+        return File::delete($path, $thumbnail);
     }
     
 }

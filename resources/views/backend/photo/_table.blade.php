@@ -23,7 +23,12 @@
                 {{ $photo->frame->nama_frame }}
             </td>
             <td>
+                <form id="delete_{{ $photo->id }}" action="{{ route('photo.destroy',$photo->id) }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    @csrf
                 <a href="{{ route('photo.show',$photo->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"> <i class="c-icon cil-image1"></i> </a>
+                <button type="button" value="{{ $photo->id }}" class="del btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="c-icon cil-trash"></i></button>
+                </form>
             </td>
         </tr>
         @endforeach

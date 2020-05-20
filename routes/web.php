@@ -46,7 +46,7 @@ Route::group(['namespace' => 'b', 'prefix' => 'admin'], function () {
     Route::resource('background', 'BackgroundController');
     Route::post('preview/background', 'BackgroundController@preview')->name('background.preview');
 
-    Route::resource('photo', 'PhotoController', ['only' => ['index', 'show']]);
+    Route::resource('photo', 'PhotoController', ['only' => ['index', 'show','destroy']]);
     Route::get('photoDownload/{id}', 'PhotoController@downloadPhoto')->name('downloadPhoto');
     Route::get('prepare', 'FrameController@prepare')->name('frame.prepare');
 });

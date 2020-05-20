@@ -120,11 +120,7 @@ class FrameController extends BackendController
         $frame = Frame::where('id', $id)->first();
         $this->deleteImage($frame->path_frame);
         $frame->delete();
-        Session::flash('flash_notification', [
-            'title'   => 'Successful!',
-            'level'   => 'error',
-            'message' => 'Frame successfully deleted.'
-        ]);
+        $this->notification('error','Successful!','Frame successfully deleted.');
         $result = [
             'result' => 'ok',
             'code'   => '200',
