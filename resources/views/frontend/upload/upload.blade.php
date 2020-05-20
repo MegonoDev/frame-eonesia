@@ -93,7 +93,7 @@
     </div>
 
     <!-- necessary plugins-->
-    <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.5.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/lib/croppie/exif.js') }}"></script>
     <script src="{{ asset('assets/lib/croppie/croppie.js') }}"></script>

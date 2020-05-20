@@ -30,7 +30,7 @@
     @yield('content')
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('assets/coreui/node_modules/js/coreui.bundle.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('assets/js/jquery-3.5.0.min.js') }}"></script>
 
     @stack('scripts')
 </body>
