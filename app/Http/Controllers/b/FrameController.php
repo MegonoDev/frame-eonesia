@@ -42,11 +42,7 @@ class FrameController extends BackendController
             if (!File::isDirectory($path)) File::makeDirectory($path, 0775, true, true);
         }
 
-        Session::flash('flash_notification', [
-            'title' => 'Successful!',
-            'level' => 'success',
-            'message' => 'Preparation Completed'
-        ]);
+        $this->notification('success','Successful!','Preparation Completed.');
 
         return redirect()->back();
     }
@@ -64,11 +60,8 @@ class FrameController extends BackendController
         $data = $this->handleRequest($request);
         $create = Frame::create($data);
         if ($create) {
-            Session::flash('flash_notification', [
-                'title'   => 'Successful!',
-                'level'   => 'success',
-                'message' => 'Frame successfully added.'
-            ]);
+
+        $this->notification('success','Successful!','Frame successfully added.');
 
             $redirect = ($request->has('stay')) ? 'frame.create' : 'frame.index';
 
@@ -98,11 +91,7 @@ class FrameController extends BackendController
         if ($oldFrame !== $frame->path_frame) $this->deleteImage($oldFrame);
         if ($oldType  !== $frame->type_frame) $this->resizeImage($frame);
 
-        Session::flash('flash_notification', [
-            'title'   => 'Successful!',
-            'level'   => 'success',
-            'message' => 'Frame successfully edited.'
-        ]);
+        $this->notification('success','Successful!','Frame successfully edited.');
 
         return redirect()->route('frame.index');
     }
