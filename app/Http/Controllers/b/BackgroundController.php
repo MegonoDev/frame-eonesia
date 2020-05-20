@@ -50,11 +50,8 @@ class BackgroundController extends BackendController
         $data = $this->handleRequest($request);
         $create = Background::create($data);
         if ($create) {
-            Session::flash('flash_notification', [
-                'title'   => 'Successful!',
-                'level'   => 'success',
-                'message' => 'Background successfully added.'
-            ]);
+            
+        $this->notification('success','Successful!','Background successfully created.');
 
             $redirect = ($request->has('stay')) ? 'background.create' : 'background.index';
 
@@ -103,11 +100,8 @@ class BackgroundController extends BackendController
 
         if ($oldBackground !== $background->path_bg) $this->deleteImage($oldBackground);
 
-        Session::flash('flash_notification', [
-            'title'   => 'Successful!',
-            'level'   => 'success',
-            'message' => 'Background successfully edited.'
-        ]);
+        $this->notification('success','Successful!','Background successfully edited.');
+        
         return redirect()->route('background.index');
     }
 
@@ -124,11 +118,8 @@ class BackgroundController extends BackendController
         $this->deleteImage($background->path_bg);
         $background->delete();
 
-        Session::flash('flash_notification', [
-            'title'   => 'Successful!',
-            'level'   => 'error',
-            'message' => 'Background successfully deleted.'
-        ]);
+        
+        $this->notification('error','Deleted!','Background successfully deleted.');
         $result = [
             'result' => 'ok',
             'code'   => '200',

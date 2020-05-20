@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\b;
 
-use App\Helpers\Size;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class BackendController extends Controller
 {
@@ -18,5 +18,14 @@ class BackendController extends Controller
             'name-second' => $nameSecond,
             'current' => $current
         ];
+    }
+    protected function notification($level,$title,$message)
+    {
+
+       return  Session::flash('flash_notification', [
+            'title'   => $title,
+            'level'   => $level,
+            'message' => $message
+        ]);
     }
 }
