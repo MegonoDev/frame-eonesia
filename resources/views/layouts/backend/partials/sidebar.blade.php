@@ -38,20 +38,6 @@
                 <span class="badge badge-info">NEW</span>
             </a>
         </li>
-        <li class="c-sidebar-nav-divider"></li>
-        <li class="c-sidebar-nav-title">Coming soon features</li>
-        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-            <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                <i class="c-sidebar-nav-icon c-icon cil-star"></i> Users
-            </a>
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="#" target="_top">
-                        <i class="c-sidebar-nav-icon c-icon cil-columns"></i>Manage Users
-                    </a>
-                </li>
-            </ul>
-        </li>
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
 </div>

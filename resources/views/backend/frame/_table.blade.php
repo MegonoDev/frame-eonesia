@@ -5,11 +5,11 @@
             <th>#</th>
             <th>Frame</th>
             <th>Background</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>URL</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">URL</th>
             <th>Photo</th>
-            <th>Action</th>
+            <th class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -22,11 +22,11 @@
             <td width="5%">
                 <img src="{{ asset(($frame->id_bg == null) ? 'assets/img/default-landscape.png' : 'img/bg/'.$frame->background->path_bg_thumb) }}" alt="thumbnail" style="width:100px;height:100px">
             </td>
-            <td>{{ $frame->nama_frame }}</td>
-            <td>{{ $frame->type_frame }}</td>
-            <td><a href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
-            <td><a href="{{ route('result.index',$frame->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Result"> <i class="c-icon cil-image1"></i> </td>
-            <td>
+            <td class="text-center">{{ $frame->nama_frame }}</td>
+            <td class="text-center">{{ $frame->type_frame }}</td>
+            <td class="text-center"><a class="font-weight-bold" target="_blank" href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
+            <td class="text-center"><a href="{{ route('result.index',$frame->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Result"> <i class="c-icon cil-image1"></i> </td>
+            <td class="text-center">
                 <form id="delete_{{ $frame->id }}" action="{{ route('frame.destroy',$frame->id) }}">
                     <input type="hidden" name="_method" value="DELETE">
                     @csrf

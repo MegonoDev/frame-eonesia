@@ -38,6 +38,7 @@ class FrameController extends BackendController
             public_path() . '/img/result',
             public_path() . '/img/zip',
         ];
+        
         foreach ($paths as $path) {
             if (!File::isDirectory($path)) File::makeDirectory($path, 0775, true, true);
         }
