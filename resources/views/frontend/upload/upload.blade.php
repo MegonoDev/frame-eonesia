@@ -114,8 +114,8 @@
 
             $('#file-upload').on('change', function() {
                 var reader = new FileReader();
-                var minweight = "{{ $size['width'] }}";
-                var minheight = "{{ $size['width'] }}";
+                var minweight = "{{ $size['width_thumb'] }}";
+                var minheight = "{{ $size['width_thumb'] }}";
                 reader.onload = function(event) {
                     var image = new Image();
                     //Set the Base64 string return from FileReader as source.
@@ -126,12 +126,12 @@
                         var width = this.width;
                         if (width < minweight) {
                             console.log('witdh', width);
-                            alert("Lebar Gambar Minimal {{ $size['width'] }}px.");
+                            alert("Lebar Gambar Minimal {{ $size['width_thumb'] }}px.");
                             $("#file-drag").show();
                             return false;
                         } else if (height < minheight) {
                             console.log('height', height);
-                            alert("Tinggi Gambar Minimal {{ $size['height']}}px.");
+                            alert("Tinggi Gambar Minimal {{ $size['height_thumb']}}px.");
                             $("#file-drag").show();
                             return false;
                         }
