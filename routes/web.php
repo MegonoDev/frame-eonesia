@@ -55,7 +55,7 @@ Route::group(['namespace' => 'b', 'prefix' => 'admin'], function () {
 
 Route::group(['namespace' => 'f',], function () {
     Route::get('/', 'FrontendController@index')->name('frontend.index');
-    Route::get('frame/{id}', 'UploadController@upload')->name('upload');
-    Route::post('frame/{id}', 'UploadController@store')->name('upload.store');
+    Route::get('/-{id}', 'UploadController@upload')->name('upload');
+    Route::post('/-{id}', 'UploadController@store')->name('upload.store');
     Route::get('download/{id}', 'UploadController@download')->name('download');
 });
