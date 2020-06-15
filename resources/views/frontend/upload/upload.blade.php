@@ -8,11 +8,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
-    <meta name="description" content="upload foto kamu">
+    <meta name="description" content="{{ $frame->nama_frame }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('assets/img/icon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/icon-new.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/icon-new.png') }}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('assets/coreui/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/lib/croppie/croppie.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}">
