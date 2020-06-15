@@ -32,10 +32,10 @@
 
         body {
             background: url('{{ ($frame->id_bg == null) ? '' : asset("img/bg/".$frame->background->path_bg) }}');
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
+            -webkit-background-size: contain;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            background-size: contain;
         }
     </style>
 
