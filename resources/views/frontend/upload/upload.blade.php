@@ -3,16 +3,16 @@
 <html lang="en">
 
 <head>
-    <title> </title>
+    <title> {{ $frame->nama_frame }} </title>
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
-    <meta name="description" content="upload foto kamu">
+    <meta name="description" content="{{ $frame->nama_frame }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('assets/img/icon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/icon-new.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/icon-new.png') }}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('assets/coreui/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/lib/croppie/croppie.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}">
@@ -36,6 +36,9 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
         }
     </style>
 
@@ -114,8 +117,8 @@
 
             $('#file-upload').on('change', function() {
                 var reader = new FileReader();
-                var minweight = "{{ $size['width'] }}";
-                var minheight = "{{ $size['width'] }}";
+                var minweight = "{{ $size['width_thumb'] }}";
+                var minheight = "{{ $size['width_thumb'] }}";
                 reader.onload = function(event) {
                     var image = new Image();
                     //Set the Base64 string return from FileReader as source.
@@ -126,12 +129,12 @@
                         var width = this.width;
                         if (width < minweight) {
                             console.log('witdh', width);
-                            alert("Lebar Gambar Minimal {{ $size['width'] }}px.");
+                            alert("Lebar Gambar Minimal {{ $size['width_thumb'] }}px.");
                             $("#file-drag").show();
                             return false;
                         } else if (height < minheight) {
                             console.log('height', height);
-                            alert("Tinggi Gambar Minimal {{ $size['height']}}px.");
+                            alert("Tinggi Gambar Minimal {{ $size['height_thumb']}}px.");
                             $("#file-drag").show();
                             return false;
                         }

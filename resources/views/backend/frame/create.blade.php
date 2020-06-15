@@ -100,7 +100,7 @@ Create Frame
                             <div class="form-group col-sm-12">
                                 <label for="link_frame">Custom Slug</label>
                                 <input name="link_frame" class="form-control {{ $errors->has('link_frame') ? 'is-invalid' : '' }}" id="link_frame" type="text" placeholder="Custom Slug">
-                                <p class="help-block">this will create url {{ env('APP_URL') }}/frame/<span class="text-danger">[your-custom-slug]</span></p>
+                                <p class="help-block">this will create url {{ route('upload','your-custom-slug')}}</p>
                                 {!! $errors->first('link_frame', '<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>

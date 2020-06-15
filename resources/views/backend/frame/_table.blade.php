@@ -24,7 +24,7 @@
             </td>
             <td class="text-center">{{ $frame->nama_frame }}</td>
             <td class="text-center">{{ $frame->type_frame }}</td>
-            <td class="text-center"><a class="font-weight-bold" target="_blank" href="{{ env('APP_URL').'/frame/'.$frame->link_frame }}">{{ env('APP_URL').'/frame/'.$frame->link_frame }}</td>
+            <td class="text-center"><a class="font-weight-bold" target="_blank" href="{{ route('upload',$frame->link_frame) }}">{{ route('upload',$frame->link_frame) }}</td>
             <td class="text-center"><a href="{{ route('result.index',$frame->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Result"> <i class="c-icon cil-image1"></i> </td>
             <td class="text-center">
                 <form id="delete_{{ $frame->id }}" action="{{ route('frame.destroy',$frame->id) }}">
