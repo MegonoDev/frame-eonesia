@@ -83,6 +83,8 @@
                                         </table>
                                     </div>
                                 </div>
+                                <button class="rotate btn btn-primary" type="button" data-deg="-90">Rotate Left</button>
+                                <button class="rotate btn btn-primary" type="button" data-deg="90">Rotate Right</button>
                                 <button type="button" class="btn btn-primary" id="show-frame" style="display:none;">Lihat Frame</button>
                                 <button type="button" id="upload-photo" class="btn btn-success my-2 crop_image"><i class="fa fa-upload" aria-hidden="true"></i> Upload Photo</button>
                                 <p id="catatan">*klik pada gambar untuk geser kanan, kiri, atas dan bawah </p>
@@ -101,9 +103,17 @@
     <script src="{{ asset('assets/lib/croppie/exif.js') }}"></script>
     <script src="{{ asset('assets/lib/croppie/croppie.js') }}"></script>
     <script>
+        $(function() {
+            $('.rotate').on('click', function(ev) {
+                ev.preventDefault();
+                $('#image_demo').croppie('rotate', parseInt($(this).data('deg')));
+            });
+        });
+
         $(document).ready(function() {
             $image_crop = $('#image_demo').croppie({
                 enableExif: true,
+                enableOrientation: true,
                 viewport: {
                     width: "{{ $size['width_thumb'] }}",
                     height: "{{ $size['height_thumb'] }}",
