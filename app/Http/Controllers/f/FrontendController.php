@@ -10,7 +10,7 @@ class FrontendController extends Controller
     protected $pathResult = 'img/result';
     public function index()
     {
-        // return view('frontend.index');
-        return redirect('https://eonesia.id');
+        return view('frontend.index');
+        // return redirect('https://eonesia.id');
     }
 }
