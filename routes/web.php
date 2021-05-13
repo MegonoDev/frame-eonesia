@@ -57,7 +57,7 @@ Route::group(['namespace' => 'f',], function () {
     Route::get('/', 'FrontendController@index')->name('frontend.index');
     Route::get('/-{id}', 'UploadController@upload')->name('upload');
     
-    Route::get('/frame/{id}', 'UploadController@upload')->name('upload');
+    Route::get('/frame/{id}', 'UploadController@upload');
     // Route::post('/-{id}', 'UploadController@store')->name('upload.store');
 
     Route::post('/-{id}', 'UploadController@store')->name('upload.store');
