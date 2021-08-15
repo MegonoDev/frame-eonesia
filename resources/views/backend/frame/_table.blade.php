@@ -40,6 +40,7 @@
         @endforeach
     </tbody>
 </table>
+{!! $frames->links() !!}
 @else
 
 <div class="text-center text-muted">
